@@ -1,3 +1,9 @@
+''' tham done
+    xoa done
+    sua 
+    tim kiem done
+    danh sach done
+    '''
 import pandas as pd
 class Courses:
     def __init__(self, db):
@@ -34,3 +40,9 @@ class Courses:
             return f"Khong tim thay khoa hoc {ma_khoa_hoc}!"
         print(f"Da tim thay khoa hoc, MaKHoa = {ma_khoa_hoc}")
         return pd.DataFrame(khoaHoc,columns = ['MaKhoaHoc','TenKhoaHoc','MoTa','SoTinChi']).set_index('MaKhoaHoc')
+    
+    def hienThiKH(self):
+        query = "SELECT * FROM courses"
+        if not self.db.fetch(query): # danh sach = None
+            return f"Danh sach Khoa Hoc RONG"
+        return pd.DataFrame(self.db.fetch(query),columns = ['MaKH','TenKH','MoTa','SoTinChi']).set_index('MaKH')
