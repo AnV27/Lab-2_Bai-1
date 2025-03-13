@@ -1,10 +1,12 @@
 import pandas as pd 
+from datetime import datetime
 class Students:
     # khoi tao constructor
     def __init__(self, db):
         self.db = db 
 
     def themSV(self, ma, ten, ngaySinh,email,soDienThoai, diaChi):
+        ngaySinh = datetime.strptime(ngaySinh, "%Y-%m-%d").date() # chuyen tu str ve date
         # cau lenh de them du lieu vao table
         query = "INSERT INTO students(ma_sinh_vien, ten_sinh_vien, ngay_sinh,email,so_dien_thoai, dia_chi) VALUES(%s,%s,%s,%s,%s,%s)"
         values = (ma,ten, ngaySinh,email, soDienThoai, diaChi)
@@ -32,7 +34,7 @@ class Students:
         listSinhVien = self.db.fetch(query)
         if not listSinhVien:
             return "List SinhVien = None!"
-        return pd.DataFrame(listSinhVien, columns = ['MSSV','HoTen','NgaySinh','Email','SDT','DiaChi']).set_index('MSSV')
+        return pd.DataFrame(listSinhVien, columns = ['MSSV','HoTen','NgaySinh','Email','SDT','DiaChi'])
     
     def timSV(self,ma_sinh_vien):
         query = "SELECT * FROM students WHERE ma_sinh_vien = %s"
@@ -40,10 +42,10 @@ class Students:
         sinh_vien = self.db.fetch(query, values)
 
         if not sinh_vien:
-            return f"MSSV: {ma_sinh_vien}, khong co trong danh sach!"
+            return f"MSSV: {ma_sinh_vien}, khong ton tai!"
         
         print(f"Tim thay MSSV: {ma_sinh_vien}")
-        return pd.DataFrame(sinh_vien,columns = ['MSSV','HoTen','NgaySinh','Email','SDT','DiaChi']).set_index('MSSV')
+        return pd.DataFrame(sinh_vien,columns = ['MSSV','HoTen','NgaySinh','Email','SDT','DiaChi'])
 
 
     '''can cap nhat chuc nang'''

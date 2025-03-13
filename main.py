@@ -10,23 +10,70 @@
 from database import *
 from students import *
 from courses import *
+from enrollment import *
 DatabaseName = "Lab2"
 HostName = "localhost"
 Port = 5432
 UserName = "postgres"
 Password = 2785
 
-db = Database(host = HostName, user = UserName, password = Password, port = Port, dbname = DatabaseName)
-SinhVienA = Students(db)
-KhoaHoc = Courses(db)
+dataBase = Database(host = HostName, user = UserName, password = Password, port = Port, dbname = DatabaseName)
+SinhVien = Students(dataBase)
+KhoaHoc = Courses(dataBase)
+DangKyMon = Enrollment(dataBase,SinhVien, KhoaHoc)
 
+while True:
+    print("\n=== QUẢN LÝ HỆ THỐNG ===")
+    print("1. Thêm sinh viên")
+    print("2. Xóa sinh viên")
+    print("3. Hiển thị danh sách sinh viên")
+    print("4. Thêm khóa học")
+    print("5. Xóa khóa học")
+    print("6. Hiển thị danh sách khóa học")
+    print("7. Đăng ký học phần")
+    print("0. Thoát")
 
+    choice = input("Nhập lựa chọn: ")
 
-# print(KhoaHoc.themKH('2','Python','muoi diem',3))
-print(KhoaHoc.xoaKH('1'))
-# SinhVienA.themSinhVien("1", "Nguyen Van A", "10-05-2002", "nguyenvana@example.com", "0987654321", "Duong Le Loi, Quan 1, TPHCM")
-# SinhVienA.themSinhVien("2", "Tran Thi B", "15-09-2003", "tranthib@example.com", "0978123456", "Duong Tran Hung Dao, Ha Noi")
-# SinhVienA.themSinhVien("3", "Le Van C", "20-07-2003", "levanc@example.com", "0965123789", "Duong Nguyen Hue, Da Nang")
-# SinhVienA.themSinhVien("4", "Pham Hong D", "25-12-2000", "phamhongd@example.com", "0956789123", "Duong Vo Thi Sau, Can Tho")
+    match choice:
+        case "1":
+            ma_sv = input("Nhập mã sinh viên: ")
+            ten_sv = input("Nhập tên sinh viên: ")
+            ngay_sinh = input("Nhập ngày sinh (YYYY-MM-DD): ")
+            email = input("Nhập email: ")
+            sdt = input("Nhập số điện thoại: ")
+            dia_chi = input("Nhập địa chỉ: ")
+            print(SinhVien.themSV(ma_sv, ten_sv, ngay_sinh, email, sdt, dia_chi))
 
+        case "2":
+            ma_sv = input("Nhập mã sinh viên cần xóa: ")
+            print(SinhVien.xoaSV(ma_sv))
 
+        case "3":
+            print(SinhVien.danhSachSV())
+
+        case "4":
+            ma_kh = input("Nhập mã khóa học: ")
+            ten_kh = input("Nhập tên khóa học: ")
+            mo_ta = input("Nhap mo ta: ")
+            so_tin = int(input("Nhap so tin chi: "))
+            print(KhoaHoc.themKH(ma_kh, ten_kh, mo_ta, so_tin))
+
+        case "5":
+            ma_kh = input("Nhập mã khóa học cần xóa: ")
+            print(KhoaHoc.xoaKH(ma_kh))
+
+        case "6":
+            print(KhoaHoc.hienThiKH())
+
+        case "7":
+            ma_sv = input("Nhập mã sinh viên: ")
+            ma_kh = input("Nhập mã khóa học: ")
+            print(DangKyMon.DKHocPhan(ma_sv, ma_kh))
+
+        case "0":
+            print("Thoát chương trình!")
+            break
+
+        case _:
+            print("Lựa chọn không hợp lệ, vui l3òng nhập lại!")
