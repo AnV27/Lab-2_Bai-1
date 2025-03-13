@@ -5,6 +5,9 @@
     11-03-2025
     1. Thêm, xoá, tìm, danh sách của SINH VIÊN hoàn thành
     2. Thêm, xoá, tìm KHOÁ HỌC hoàn thành, Lưu ý: Đổi thông báo từ mãKH -> tên khoá học, dễ đọc TB
+    13-03-2025
+    Tương đối xong students và courses (chưa có chức năng sửa)
+    Cần hoàn thành enrollment (Đã xong đăng ký)
     '''
 
 from database import *
