@@ -8,6 +8,8 @@
     13-03-2025
     Tương đối xong students và courses (chưa có chức năng sửa)
     Cần hoàn thành enrollment (Đã xong đăng ký)
+    14-03-2025
+    Hoàn thành class enrollment
     '''
 
 from database import *
@@ -79,4 +81,4 @@ while True:
             break
 
         case _:
-            print("Lựa chọn không hợp lệ, vui l3òng nhập lại!")
+            print("Lựa chọn không hợp lệ, vui lòng nhập lại!")
