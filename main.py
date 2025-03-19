@@ -41,6 +41,7 @@ while True:
     choice = input("Nhập lựa chọn: ")
 
     match choice:
+        # them sinh vien
         case "1":
             ma_sv = input("Nhập mã sinh viên: ")
             ten_sv = input("Nhập tên sinh viên: ")
@@ -49,36 +50,53 @@ while True:
             sdt = input("Nhập số điện thoại: ")
             dia_chi = input("Nhập địa chỉ: ")
             print(SinhVien.themSV(ma_sv, ten_sv, ngay_sinh, email, sdt, dia_chi))
-
+        # xoa sinh vien
         case "2":
             ma_sv = input("Nhập mã sinh viên cần xóa: ")
             print(SinhVien.xoaSV(ma_sv))
-
+        # hien thi danh sach sinh vien
         case "3":
             print(SinhVien.danhSachSV())
-
+            # tim sinh vien
         case "4":
+            ma_sinh_vien = input("Nhap ma so sinh vien muon tim: ")
+            print(SinhVien.timSV(ma_sinh_vien=ma_sinh_vien))
+        # them khoa hoc moi
+        case "5":
             ma_kh = input("Nhập mã khóa học: ")
             ten_kh = input("Nhập tên khóa học: ")
             mo_ta = input("Nhap mo ta: ")
             so_tin = int(input("Nhap so tin chi: "))
             print(KhoaHoc.themKH(ma_kh, ten_kh, mo_ta, so_tin))
-
-        case "5":
+        # xoa khoa hoc 
+        case "6":
             ma_kh = input("Nhập mã khóa học cần xóa: ")
             print(KhoaHoc.xoaKH(ma_kh))
-
-        case "6":
-            print(KhoaHoc.hienThiKH())
-
+        # hien thi danh sach khoa hoc
         case "7":
+            print(KhoaHoc.hienThiKH())
+        # tim khoa hoc
+        case "8":
+            ma_khoa_hoc = input("Nhap ma khoa hoc muon tim: ")
+            print(KhoaHoc.timKH(ma_khoa_hoc))
+        # dang ky khoa hoc 
+        case "9":
             ma_sv = input("Nhập mã sinh viên: ")
             ma_kh = input("Nhập mã khóa học: ")
             print(DangKyMon.DKHocPhan(ma_sv, ma_kh))
-
+        # xoa dang ky
+        case "10":
+            ma_dang_ky = input("Nhap ma dang ky: ")
+            print(DangKyMon.xoaDK(ma_dang_ky))
+        case "11":
+            pass 
+        # tim dang ky
+        case "12":
+            mssv = input("Nhap ma sinh vien: ")
+            ma_khoa = input("Nhap ma khoa hoc: ")
+            DangKyMon.timDK(ma_sinh_vien=mssv,ma_khoa_hoc=ma_khoa)
         case "0":
             print("Thoát chương trình!")
             break
-
         case _:
             print("Lựa chọn không hợp lệ, vui lòng nhập lại!")
