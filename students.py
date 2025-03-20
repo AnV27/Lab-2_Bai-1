@@ -22,7 +22,7 @@ class Students:
         # cau lenh de xoa du lieu vao table
         query = " DELETE FROM students WHERE ma_sinh_vien = %s"
         try:
-            self.db.execute(query,values = ma_sinh_vien) # ham de truy van 
+            self.db.execute(query,values = (ma_sinh_vien,)) # ham de truy van 
             return f"MSSV: {ma_sinh_vien}, Da xoa thanh cong!"
         
         except Exception as e:
@@ -33,7 +33,7 @@ class Students:
         query = "SELECT * FROM students"
         listSinhVien = self.db.fetch(query)
         if not listSinhVien:
-            return "List SinhVien = None!"
+            return "Danh sach RONG"
         return pd.DataFrame(listSinhVien, columns = ['MSSV','HoTen','NgaySinh','Email','SDT','DiaChi'])
     
     def timSV(self,ma_sinh_vien):

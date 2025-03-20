@@ -94,9 +94,16 @@ while True:
         case "12":
             mssv = input("Nhap ma sinh vien: ")
             ma_khoa = input("Nhap ma khoa hoc: ")
-            DangKyMon.timDK(ma_sinh_vien=mssv,ma_khoa_hoc=ma_khoa)
+            print(DangKyMon.timDK(ma_sinh_vien=mssv,ma_khoa_hoc=ma_khoa))
         case "0":
             print("Thoát chương trình!")
             break
         case _:
             print("Lựa chọn không hợp lệ, vui lòng nhập lại!")
+
+        #    ✅1. nhap sinh vien    ✅2. xoa sinh vien   ✅3. danh sach sinh vien   ✅4. tim kiem sinh vien
+        #    ✅5. Tao khoa hoc      ✅6. Xoa khoa hoc    ✅7. danh sach khoa        ✅8. tim kiem khoa    
+        #    ✅9. Dang ky           ✅10. xoa dang ky    11. pass                    ✅12. tim dang ky    
+
+    # ✅
+    # ❌

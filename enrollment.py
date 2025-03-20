@@ -39,17 +39,17 @@ class Enrollment:
     def xoaDK(self, ma_dang_ky):
         # cau truy vap trong SQL
         query = "DELETE FROM enrollment WHERE ma_dang_ky = %s"
-
+        query_check_maDK = "SELECT ma_dang_ky FROM enrollment WHERE ma_dang_ky = %s"
+        if not self.db.fetch(query_check_maDK,(ma_dang_ky,)):
+            return "Khong ton tai ma dang ky!"
         # ket qua truy van
-        res = self.db.execute(query, (ma_dang_ky,))
-        if not res:
-            # thong bao tra ve neu ma_dang_ky khong co trong db
-            return f"xoa dang ky that bai!"
+        self.db.execute(query, (ma_dang_ky,))
         return f"Xoa dang ky hoc phan {ma_dang_ky} thanh cong!"
+
         
     def timDK(self,ma_sinh_vien, ma_khoa_hoc):
         query = "SELECT * FROM enrollment WHERE ma_sinh_vien = %s AND ma_khoa_hoc = %s"
-        res = self.db.fetch(query,(ma_sinh_vien, ma_khoa_hoc))
+        res = self.db.fetch(query,(ma_sinh_vien, ma_khoa_hoc,))
         if not res:
             return "Khong tim thay cac dang ky hoc phan!"
         print(f"Da tim thay khoa hoc")
