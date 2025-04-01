@@ -2,7 +2,7 @@ import pandas as pd
 from src.Database import Database
 from datetime import datetime
 
-
+# Định nghĩa các cột cho DataFrame khi hiển thị danh sách sinh viên
 columnsStudent = [
     "StudentID",
     "StudentName",
@@ -12,9 +12,7 @@ columnsStudent = [
     "Address",
 ]
 
-
 class Student:
-    # khoi tao constructor
     def __init__(
         self,
         student_name: str,
@@ -24,6 +22,7 @@ class Student:
         address: str,
         student_id: int = None,
     ):
+        # Hàm khởi tạo lớp Student với các thuộc tính cơ bản
         self.student_id = student_id
         self.student_name = student_name
         self.birth_date = birth_date
@@ -32,20 +31,17 @@ class Student:
         self.address = address
 
     def checkIdStudent(self, db: Database, student_id: int) -> bool:
-
+        # Kiểm tra xem mã sinh viên có tồn tại trong cơ sở dữ liệu hay không
         query = "SELECT EXISTS(SELECT 1 FROM student WHERE student_id = %s)"
         values = (student_id,)
-
         checkPoint = db.fetch(query, values)
         return bool(checkPoint[0][0]) if checkPoint else False
 
     def addStudent(self, db: Database) -> bool:
-
+        # Thêm một sinh viên mới vào cơ sở dữ liệu
         self.birth_date = datetime.strptime(
             self.birth_date, "%Y-%m-%d"
-        ).date()  # chuyen tu str ve date
-        # cau lenh de them du lieu vao table
-
+        ).date()  # Chuyển đổi từ chuỗi sang kiểu ngày
         query = "INSERT INTO student (student_name, birth_date, email, phone_number, address) VALUES(%s, %s, %s, %s, %s)"
         values = (
             self.student_name,
@@ -54,53 +50,32 @@ class Student:
             self.phone_number,
             self.address,
         )
-
-        if db.execute(query, values):
-            return True
-
-        return False
+        return db.execute(query, values)
 
     def removeStudent(self, db: Database, student_id: int) -> bool:
+        # Xóa một sinh viên khỏi cơ sở dữ liệu dựa trên mã sinh viên
         if self.checkIdStudent(db, student_id):
-
             query = "DELETE FROM student WHERE student_id = %s"
             values = (student_id,)
-
-            if db.execute(query, values):
-                return True
-
-        # truong hop khong tim thay student_id thi out func -> return False
+            return db.execute(query, values)
         return False
 
     def displayAllStudents(self, db: Database) -> pd.DataFrame:
-
+        # Hiển thị danh sách tất cả sinh viên trong cơ sở dữ liệu
         query = "SELECT * FROM student"
-        values = None
-
-        data = db.fetch(query, values)
-
+        data = db.fetch(query, None)
         if not data:
-            # tra ve empty dataframe neu khong co du lieu trong db
             return pd.DataFrame()
-
-        df = pd.DataFrame(data, columns=columnsStudent)
-
-        return df
+        return pd.DataFrame(data, columns=columnsStudent)
 
     def displayOneStudent(self, db: Database, student_id: int) -> pd.DataFrame:
-
+        # Hiển thị thông tin chi tiết của một sinh viên dựa trên mã sinh viên
         if not self.checkIdStudent(db, student_id):
-            # tra ve empty dataframe neu khong co du lieu trong db
             return pd.DataFrame()
-
         query = "SELECT * FROM student WHERE student_id = %s"
         values = (student_id,)
-
         data = db.fetch(query, values)
-        # tra ve kieu dataframe de ng dung truc quan hoa (dang bang)
-        df = pd.DataFrame(data, columns=columnsStudent)
-
-        return df
+        return pd.DataFrame(data, columns=columnsStudent)
 
     def editStudent(
         self,
@@ -112,6 +87,7 @@ class Student:
         phone_number: str,
         address: str,
     ) -> bool:
+        # Sửa thông tin của một sinh viên dựa trên mã sinh viên
         updates = []
         values = []
         if student_name:

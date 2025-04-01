@@ -1,12 +1,13 @@
 import configparser
 import psycopg2
 
-# Đọc file cấu hình .ini
+# Đọc file cấu hình để lấy thông tin kết nối cơ sở dữ liệu
 config = configparser.ConfigParser()
 config.read(
     "f:\\Document\\Tổng hợp các môn học\\Python Programming\\Lab\\Lab2\\Bài 1\\.ini"
 )
 
+# Lấy thông tin cấu hình từ file .ini
 db = config["database"]["dbName"]
 hostname = config["database"]["hostName"]
 password = config["database"]["password"]
@@ -23,14 +24,14 @@ class Database:
         hostname=hostname,
         port=port,
     ):
-        """Kết nối với PostgreSQL"""
+        # Hàm khởi tạo để kết nối với cơ sở dữ liệu PostgreSQL
         self.conn = psycopg2.connect(
             dbname=dbname, user=username, password=password, host=hostname, port=port
         )
         self.cur = self.conn.cursor()
 
-    # chi dung dung de gui truy van den database
     def execute(self, query, values=None):
+        # Thực thi câu lệnh SQL (INSERT, UPDATE, DELETE)
         try:
             self.cur.execute(query, values or ())
             self.conn.commit()
@@ -39,16 +40,17 @@ class Database:
             print(f"Database execution error: {e}")
             return False
 
-    # gui truy van den db va lay du lieu tu db ve
     def fetch(self, query, values=None):
+        # Thực thi câu lệnh SQL (SELECT) và trả về kết quả
         try:
             self.cur.execute(query, values or ())
-            return self.cur.fetchall()  # lay tat ca cac du lieu tu truy van
+            return self.cur.fetchall()  # Lấy tất cả dữ liệu từ truy vấn
         except Exception as e:
             print(f"Database fetch error: {e}")
             return []
 
     def close(self):
+        # Đóng kết nối cơ sở dữ liệu
         self.cur.close()
         self.conn.close()
         return "Close done"

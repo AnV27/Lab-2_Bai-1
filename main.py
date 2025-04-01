@@ -1,14 +1,16 @@
-from turtle import st
+# Nhập các thư viện cần thiết và các lớp từ các module khác
 from src.Student import Student
 from src.Courses import Courses
 from src.Enrollemt import Enrollment
 from src.Database import Database
 
+# Khởi tạo đối tượng cơ sở dữ liệu và các đối tượng chính cho sinh viên, khóa học, và đăng ký
 db = Database()
 student_main = Student("", "", "", "", "")
 courses_main = Courses("", "", 0)
 enrollment_main = Enrollment(0, 0)
 
+# Dữ liệu mẫu sinh viên (bị ẩn đi để không sử dụng)
 # student1 = Student(
 #     student_name="Trần Văn Hưng",
 #     birth_date="2000-01-23",
@@ -96,19 +98,7 @@ enrollment_main = Enrollment(0, 0)
 #     address="Đồng Nai",
 # )
 
-
-# student1.addStudent(db)
-# student2.addStudent(db)
-# student3.addStudent(db)
-# student4.addStudent(db)
-# student5.addStudent(db)
-# student6.addStudent(db)
-# student7.addStudent(db)
-# student8.addStudent(db)
-# student9.addStudent(db)
-# student10.addStudent(db)
-# student11.addStudent(db)
-
+# Dữ liệu mẫu khóa học (bị ẩn đi để không sử dụng)
 # courses1 = Courses(
 #     courses_name="Toán cao cấp", describe="Môn học về đại số và giải tích", credits=3
 # )
@@ -167,54 +157,38 @@ enrollment_main = Enrollment(0, 0)
 #     credits=4,
 # )
 
-
-# courses1.addCourses(db)
-# courses2.addCourses(db)
-# courses3.addCourses(db)
-# courses4.addCourses(db)
-# courses5.addCourses(db)
-# courses6.addCourses(db)
-# courses7.addCourses(db)
-# courses8.addCourses(db)
-# courses9.addCourses(db)
-# courses10.addCourses(db)
-
-
+# Vòng lặp chính để hiển thị menu và xử lý các lựa chọn của người dùng
 while True:
+    # Hiển thị menu chính của hệ thống quản lý
     print("\n=== QUẢN LÝ HỆ THỐNG ===")
     print("1. Thêm sinh viên")
     print("2. Xóa sinh viên")
     print("3. Tìm kiếm sinh viên")
     print("4. Hiển thị danh sách sinh viên")
-
     print("5. Thêm khóa học")
     print("6. Xóa khóa học")
     print("7. Tìm kiếm khoá học")
     print("8. Hiển thị danh sách khóa học")
-
     print("9. Đăng ký học phần")
     print("10. Huỷ đăng ký học phần")
     print("11. Tìm đăng ký theo mã sinh viên và mã khoá học")
-
     print("12. Sửa thông tin sinh viên")
     print("13. Sửa thông tin khoá học")
-
     print("0. Thoát")
     print("========================")
     choice = input("Nhập lựa chọn: ")
 
     match choice:
-        # them sinh vien
+        # Thêm sinh viên mới
         case "1":
-
+            # Nhập thông tin sinh viên từ người dùng
             student_name = input("Nhập tên sinh viên: ")
             birth_date = input("Nhập ngày sinh (YYYY-MM-DD): ")
             email = input("Nhập email: ")
             phone_number = input("Nhập số điện thoại: ")
             address = input("Nhập địa chỉ: ")
-            # điều kiện mã sinh viên không trùng
 
-            # tạo đối tượng sinh viên để thêm vào db
+            # Tạo đối tượng sinh viên và thêm vào cơ sở dữ liệu
             newStudent = Student(
                 student_name=student_name,
                 birth_date=birth_date,
@@ -222,14 +196,13 @@ while True:
                 phone_number=phone_number,
                 address=address,
             )
-            # thêm sinh viên vào1
-            # db và hiển thị thông báo cho ng dùng
+            # Kiểm tra và thông báo kết quả thêm sinh viên
             if newStudent.addStudent(db):
                 print(f"Sinh viên: {student_name} đã được thêm vào!")
             else:
                 print("Thêm sinh viên thất bại")
 
-        # case xoá thông tin sinh viên
+        # Xóa sinh viên theo mã sinh viên
         case "2":
             student_id = int(input("Nhập mã sinh viên cần xóa: "))
             if student_main.removeStudent(db, student_id):
@@ -237,18 +210,18 @@ while True:
             else:
                 print(f"Xoá sinh viên ID: {student_id} thất bại")
 
-        # hien thi danh sach sinh vien
+        # Hiển thị danh sách sinh viên
         case "4":
             listStudent = student_main.displayAllStudents(db)
-
             if not listStudent.empty:
                 print(listStudent)
                 print(
                     f"Hiển thị danh sách thành công, SL: {len(listStudent)} sinh viên."
                 )
             else:
-                print("Danh sách viên viên rỗng")
+                print("Danh sách sinh viên rỗng")
 
+        # Tìm kiếm sinh viên theo mã
         case "3":
             student_id = int(input("Nhập mã sinh viên muốn tìm: "))
             if student_main.checkIdStudent(db, student_id):
@@ -257,19 +230,21 @@ while True:
             else:
                 print(f"Không tìm thấy sinh viên ID: {student_id}")
 
-        # them khoa hoc moi
+        # Thêm khóa học mới
         case "5":
-
+            # Nhập thông tin khóa học từ người dùng
             courses_name = input("Nhập tên khóa học: ")
             describe = input("Nhập mô tả thêm cho môn học: ")
             credits = int(input("Nhập số tín chỉ của môn học: "))
             newCourses = Courses(courses_name, describe, credits)
+
+            # Kiểm tra và thông báo kết quả thêm khóa học
             if newCourses.addCourses(db):
                 print(f"Thêm khoá học {courses_name}, {credits} tín chỉ thành công!")
             else:
                 print("Thêm khoá học thất bại")
 
-        # xoa khoa hoc
+        # Xóa khóa học theo mã
         case "6":
             courses_id = int(input("Nhập mã khóa học cần xóa: "))
             if courses_main.removeCourses(db, courses_id):
@@ -277,6 +252,7 @@ while True:
             else:
                 print(f"Không tồn tại khoá học ID: {courses_id}")
 
+        # Hiển thị danh sách khóa học
         case "8":
             listCourses = courses_main.displayAllCourses(db)
             if not listCourses.empty:
@@ -285,28 +261,29 @@ while True:
             else:
                 print("Danh sách khoá học trống")
 
+        # Tìm kiếm khóa học theo mã
         case "7":
             courses_id = input("Nhập mã khoá học muốn tìm: ")
             if courses_main.checkIdCourses(db, courses_id):
                 print(courses_main.displayOneCourses(db, courses_id))
                 print("Đã hiển thị khoá học thành công")
-
             else:
                 print("Khoá học không tồn tại, không tìm thấy khoá học")
 
-        # dang ky khoa hoc
+        # Đăng ký khóa học cho sinh viên
         case "9":
             student_id = int(input("Nhập mã sinh viên: "))
             courses_id = int(input("Nhập mã khóa học: "))
+
+            # Kiểm tra mã sinh viên và mã khóa học có tồn tại không
             if (not student_main.checkIdStudent(db, student_id)) or (
                 not courses_main.checkIdCourses(db, courses_id)
             ):
-
                 print("Mã sinh viên hoặc mã khoá học không tồn tại")
                 continue
 
+            # Tạo đối tượng đăng ký và thêm vào cơ sở dữ liệu
             newEnrollment = Enrollment(student_id, courses_id)
-
             if newEnrollment.courseEnrollment(db):
                 print(
                     f"Sinh viên: {student_id} đã đăng kí khoá học {courses_id} thành công!"
@@ -314,13 +291,15 @@ while True:
             else:
                 print("Đăng kí khoá học thất bại")
 
-        # xoa dang ky
+        # Xóa đăng ký khóa học
         case "10":
             enrollment_id = int(input("Nhập mã đăng ký khoá học muốn xoá: "))
             if enrollment_main.removeEnrollment(db, enrollment_id):
                 print("Đã xoá đăng ký khoá học thành công!")
             else:
                 print("Mã đăng ký khoá học không tồn tại")
+
+        # Tìm đăng ký theo mã sinh viên và mã khóa học
         case "11":
             student_id = int(input("Nhập mã sinh viên cần tìm: "))
             courses_id = int(input("Nhập mã khoá học cần tìm: "))
@@ -335,8 +314,10 @@ while True:
                 print(result)
                 print("Hiển thị thông tin đăng ký thành công!")
             else:
-                print("Lỗi hiênt thị thông tin đăng ký")
-        case "12":  # Edit student information
+                print("Lỗi hiển thị thông tin đăng ký")
+
+        # Sửa thông tin sinh viên
+        case "12":
             student_id = int(input("Nhập mã sinh viên cần sửa: "))
             if student_main.checkIdStudent(db, student_id):
                 print("Nhập thông tin mới (để trống nếu không muốn thay đổi):")
@@ -360,7 +341,8 @@ while True:
             else:
                 print(f"Không tìm thấy sinh viên ID: {student_id}")
 
-        case "13":  # Edit course information
+        # Sửa thông tin khóa học
+        case "13":
             courses_id = int(input("Nhập mã khoá học cần sửa: "))
             if courses_main.checkIdCourses(db, courses_id):
                 print("Nhập thông tin mới (để trống nếu không muốn thay đổi):")
@@ -377,8 +359,11 @@ while True:
             else:
                 print(f"Không tìm thấy khoá học ID: {courses_id}")
 
+        # Thoát chương trình
         case "0":
             print("Thoát chương trình!")
             break
+
+        # Lựa chọn không hợp lệ
         case _:
             print("Lựa chọn không hợp lệ, vui lòng nhập lại!")
