@@ -5,157 +5,48 @@ from src.Enrollemt import Enrollment
 from src.Database import Database
 
 # Khởi tạo đối tượng cơ sở dữ liệu và các đối tượng chính cho sinh viên, khóa học, và đăng ký
-db = Database()
+
+db = Database() 
 student_main = Student("", "", "", "", "")
 courses_main = Courses("", "", 0)
 enrollment_main = Enrollment(0, 0)
 
-# Dữ liệu mẫu sinh viên (bị ẩn đi để không sử dụng)
-# student1 = Student(
-#     student_name="Trần Văn Hưng",
-#     birth_date="2000-01-23",
-#     email="tranvanhng01@gmail.com",
-#     phone_number="0126547823",
-#     address="Hà Nội",
-# )
-# student2 = Student(
-#     student_name="Nguyễn Thị Mai",
-#     birth_date="2001-03-15",
-#     email="mainguyen01@gmail.com",
-#     phone_number="0987654321",
-#     address="Hồ Chí Minh",
-# )
+# Dữ liệu mẫu cho sinh viên
+# listStudent = [
+#     Student("Trần Văn Hưng", "2000-01-23", "tranvanhng01@gmail.com", "0126547823", "Hà Nội"),
+#     Student("Nguyễn Thị Mai", "2001-03-15", "mainguyen01@gmail.com", "0987654321", "Hồ Chí Minh"),
+#     Student("Lê Văn Phúc", "2002-07-21", "phucle02@gmail.com", "0978541236", "Đà Nẵng"),
+#     Student("Phạm Minh Anh", "1999-12-30", "minhanhpham99@gmail.com", "0912345678", "Hải Phòng"),
+#     Student("Đặng Quốc Bảo", "2000-05-18", "quocbao2000@gmail.com", "0963258741", "Cần Thơ"),
+#     Student("Hoàng Thị Ngọc", "2003-09-10", "ngochoang03@gmail.com", "0932154789", "Nha Trang"),
+#     Student("Bùi Văn Tùng", "2001-11-25", "tungbui01@gmail.com", "0923654785", "Huế"),
+#     Student("Trịnh Thị Hạnh", "2002-02-28", "hanhtrinh02@gmail.com", "0908745632", "Quảng Ninh"),
+#     Student("Ngô Đình Khôi", "1998-06-07", "khoingo98@gmail.com", "0945632187", "Vũng Tàu"),
+#     Student("Dương Văn Lâm", "2000-08-14", "lamduong2000@gmail.com", "0987456321", "Bình Dương"),
+#     Student("Trần Thị Thanh", "2003-04-05", "thanhtran03@gmail.com", "0974123658", "Đồng Nai"),
+# ]
 
-# student3 = Student(
-#     student_name="Lê Văn Phúc",
-#     birth_date="2002-07-21",
-#     email="phucle02@gmail.com",
-#     phone_number="0978541236",
-#     address="Đà Nẵng",
-# )
+# for _ in listStudent:
+#     if _.addStudent(db):
+#         print(f"Thêm sinh viên {_.student_name} thành công!")
 
-# student4 = Student(
-#     student_name="Phạm Minh Anh",
-#     birth_date="1999-12-30",
-#     email="minhanhpham99@gmail.com",
-#     phone_number="0912345678",
-#     address="Hải Phòng",
-# )
+# Dữ liệu mẫu cho khoá học
+# listCourses = [
+#     Courses("Toán cao cấp", "Môn học về đại số và giải tích", 3),
+#     Courses("Lập trình Python", "Giới thiệu về lập trình Python từ cơ bản đến nâng cao", 4),
+#     Courses("Cấu trúc dữ liệu và Giải thuật", "Học về cách tổ chức dữ liệu và các thuật toán phổ biến", 4),
+#     Courses("Trí tuệ nhân tạo", "Giới thiệu về AI, Machine Learning và Deep Learning", 3),
+#     Courses("Cơ sở dữ liệu", "Tìm hiểu về hệ quản trị CSDL như MySQL, PostgreSQL", 4),
+#     Courses("Lập trình Web", "Học về HTML, CSS, JavaScript và các framework như React", 3),
+#     Courses("Mạng máy tính", "Kiến thức về giao thức mạng, bảo mật và truyền dữ liệu", 3),
+#     Courses("Hệ điều hành", "Khám phá cách hoạt động của hệ điều hành như Windows, Linux", 3),
+#     Courses("Phân tích dữ liệu", "Các kỹ thuật phân tích dữ liệu với Pandas, NumPy", 4),
+#     Courses("Khoa học dữ liệu", "Tổng quan về Data Science, xử lý dữ liệu và mô hình ML", 4),
+# ]
 
-# student5 = Student(
-#     student_name="Đặng Quốc Bảo",
-#     birth_date="2000-05-18",
-#     email="quocbao2000@gmail.com",
-#     phone_number="0963258741",
-#     address="Cần Thơ",
-# )
-
-# student6 = Student(
-#     student_name="Hoàng Thị Ngọc",
-#     birth_date="2003-09-10",
-#     email="ngochoang03@gmail.com",
-#     phone_number="0932154789",
-#     address="Nha Trang",
-# )
-
-# student7 = Student(
-#     student_name="Bùi Văn Tùng",
-#     birth_date="2001-11-25",
-#     email="tungbui01@gmail.com",
-#     phone_number="0923654785",
-#     address="Huế",
-# )
-
-# student8 = Student(
-#     student_name="Trịnh Thị Hạnh",
-#     birth_date="2002-02-28",
-#     email="hanhtrinh02@gmail.com",
-#     phone_number="0908745632",
-#     address="Quảng Ninh",
-# )
-
-# student9 = Student(
-#     student_name="Ngô Đình Khôi",
-#     birth_date="1998-06-07",
-#     email="khoingo98@gmail.com",
-#     phone_number="0945632187",
-#     address="Vũng Tàu",
-# )
-
-# student10 = Student(
-#     student_name="Dương Văn Lâm",
-#     birth_date="2000-08-14",
-#     email="lamduong2000@gmail.com",
-#     phone_number="0987456321",
-#     address="Bình Dương",
-# )
-
-# student11 = Student(
-#     student_name="Trần Thị Thanh",
-#     birth_date="2003-04-05",
-#     email="thanhtran03@gmail.com",
-#     phone_number="0974123658",
-#     address="Đồng Nai",
-# )
-
-# Dữ liệu mẫu khóa học (bị ẩn đi để không sử dụng)
-# courses1 = Courses(
-#     courses_name="Toán cao cấp", describe="Môn học về đại số và giải tích", credits=3
-# )
-
-# courses2 = Courses(
-#     courses_name="Lập trình Python",
-#     describe="Giới thiệu về lập trình Python từ cơ bản đến nâng cao",
-#     credits=4,
-# )
-
-# courses3 = Courses(
-#     courses_name="Cấu trúc dữ liệu và Giải thuật",
-#     describe="Học về cách tổ chức dữ liệu và các thuật toán phổ biến",
-#     credits=4,
-# )
-
-# courses4 = Courses(
-#     courses_name="Trí tuệ nhân tạo",
-#     describe="Giới thiệu về AI, Machine Learning và Deep Learning",
-#     credits=3,
-# )
-
-# courses5 = Courses(
-#     courses_name="Cơ sở dữ liệu",
-#     describe="Tìm hiểu về hệ quản trị CSDL như MySQL, PostgreSQL",
-#     credits=4,
-# )
-
-# courses6 = Courses(
-#     courses_name="Lập trình Web",
-#     describe="Học về HTML, CSS, JavaScript và các framework như React",
-#     credits=3,
-# )
-
-# courses7 = Courses(
-#     courses_name="Mạng máy tính",
-#     describe="Kiến thức về giao thức mạng, bảo mật và truyền dữ liệu",
-#     credits=3,
-# )
-
-# courses8 = Courses(
-#     courses_name="Hệ điều hành",
-#     describe="Khám phá cách hoạt động của hệ điều hành như Windows, Linux",
-#     credits=3,
-# )
-
-# courses9 = Courses(
-#     courses_name="Phân tích dữ liệu",
-#     describe="Các kỹ thuật phân tích dữ liệu với Pandas, NumPy",
-#     credits=4,
-# )
-
-# courses10 = Courses(
-#     courses_name="Khoa học dữ liệu",
-#     describe="Tổng quan về Data Science, xử lý dữ liệu và mô hình ML",
-#     credits=4,
-# )
+# for _ in listCourses:
+#     if _.addCourses(db):
+#         print(f"Thêm khoá học {_.courses_name} thành công!")
 
 # Vòng lặp chính để hiển thị menu và xử lý các lựa chọn của người dùng
 while True:
